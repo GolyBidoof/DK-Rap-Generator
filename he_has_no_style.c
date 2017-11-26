@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <ctype.h>
+//check the size of the array
 #define NOELMS(X) (sizeof(X) / sizeof(X[0]))
+//why doesn't c have bools :angery:
 typedef int bool;
 #define true 1
 #define false 0
@@ -55,11 +57,18 @@ char* dkArray[] = {"so", "theyre", "finally", "here", "performing", "for", "you"
 "grapes", "melons", "oranges", "and", "coconut", "shells",
 "ahh", "yeah"};
 
+//Dynamic size of the array in C ;_;
 int sizeOfDKArray = NOELMS(dkArray);
+
+//Skips in the code
 bool everySecond = false;
 bool skip = false;
 bool skipALot = false;
+
+//Basically a number used for accessing wordNumberDependencies[] 
 int globalCounter = 0;
+
+//I think I counted the amount of words in every line xD
 int wordNumberDependencies[] = {7, 9, 9, 8,
                 10, 7, 7, 7, 6, 8,
                 8, 9, 9, 10, 8, 10,
@@ -69,21 +78,24 @@ int wordNumberDependencies[] = {7, 9, 9, 8,
                 7,
                 4, 6, 2
 };
+
+//Defining function in advance
 void printVerses(int sizeOfVerse);
 
-void printRap(int size) {
-	//First verse
+void printRap() {
+	//Picking a random seed
 	srand(time(NULL));
-
+	//Legit part of the song
 	printVerses(4);
 	printVerses(6);
 	printVerses(6);
 	printVerses(6);
+	//Okay stairs start up here
 	printVerses(6);
 	printf("Huh!\n");
 	skip=true;
 	printVerses(8);
-	//final part
+	//Aaand the final part
 	printVerses(1);
 	printf("\n");
 	printVerses(3);
@@ -94,29 +106,38 @@ void printRap(int size) {
 void printVerses(int sizeOfVerse) {
 	for (int i=0; i<sizeOfVerse; i++) {
 		for (int j=0; j<wordNumberDependencies[globalCounter]; j++) {
+			//Just print j random words
 			printf("%s ", dkArray[rand()%(sizeOfDKArray)]);
 		}
+		//Advance counter of lines and print new line
 		globalCounter++;
 		printf("\n");
 	}
-
+	
+	//HUH
 	if(!skipALot) printf("Huh!\n\n");
 
+	//DK! Donkey Kong!
 	if(!skip) {
 		char* word1 = dkArray[rand()%(sizeOfDKArray)];
 		char* word2 = dkArray[rand()%(sizeOfDKArray)];
 		printf("%c%c! %s %s!\n", toupper(word1[0]), toupper(word2[0]), word1, word2);
+		
+		//DK! Donkey Kong is here!
 		if(everySecond==false) everySecond=true;
 		else {
 			printf("%c%c! %s %s is here!\n", toupper(word1[0]), toupper(word2[0]), word1, word2);
 			everySecond=false;
 		}
+		
+		//And a New Line
 		printf("\n");
+	//That just determines the flow that if the flag skip is toggled, in the next iteration it skipsALot too xD
 	} else skipALot=true;
 }
 
 int main() {
-	int sizeOfDKArray = NOELMS(dkArray);
-	printRap(sizeOfDKArray);
+	//woop woop
+	printRap();
 }
 
